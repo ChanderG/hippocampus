@@ -15,7 +15,7 @@ class iso _TestSingleNode is UnitTest
   fun name(): String => "Spawn one node and check if client can reach it."
 
   fun apply(h: TestHelper) =>
-    let n1: Node = Node("node1")
+    let n1: Node = Node("node1", h.env)
     let c: Client = Client("client", n1)
 
     // trigger client to send a request to the node

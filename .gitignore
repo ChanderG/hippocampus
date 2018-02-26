@@ -1,3 +1,4 @@
 hippocampus
 *.swp
 tags
+*.log
