@@ -11,14 +11,14 @@ actor Node
     name = name'
     values = Array[U64].create(0)
 
-    // Setup logging
-    logger = recover
+    logger = recover val
       // tmp stdout based logging for backup
       var loggerTmp = StringLogger(Info, env.out)
 
+      let filename = "logs/"+name+".log"
       try
 	// setup file based logging
-	let fp = FilePath(env.root as AmbientAuth, "logs/node.log")?
+	let fp = FilePath(env.root as AmbientAuth, filename)?
 	loggerTmp = StringLogger(Info, FileStream(recover iso
 	  // try to create file
 	  var file = File.create(fp)
@@ -33,7 +33,7 @@ actor Node
       else
 	// file based logging failed
 	// continue with stdout based logging
-	loggerTmp(Warn) and loggerTmp.log("Unable to open file for logging. Switching to stdout.")
+	loggerTmp(Warn) and loggerTmp.log("Unable to open "+filename+" for logging. Switching to stdout.")
       end
 
       loggerTmp
