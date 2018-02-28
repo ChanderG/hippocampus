@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Learnings on hippocampus</title>
+    <link>/learnings/</link>
+    <description>Recent content in Learnings on hippocampus</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 27 Feb 2018 12:42:12 +0530</lastBuildDate>
+    
+	<atom:link href="/learnings/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Sleep</title>
+      <link>/learnings/01_sleep/</link>
+      <pubDate>Tue, 27 Feb 2018 12:56:10 +0530</pubDate>
+      
+      <guid>/learnings/01_sleep/</guid>
+      <description>Wanted to insert a sleep call to let the system stabilize for my test asserts to run correctly.
+From what I can see, there is no system library function sleep as is in other languages.
+But thanks to the C FFI, getting this working was as simple as:
+@sleep[None](U32(5))  Ya, ya I know, the first learning is to use the C FFI to introduce possibly unsafe behaviour. In my case, it is OK (maybe), but I am not sure of the impact of such FFI calls in the long run and I think the official line would be towards avoiding this.</description>
+    </item>
+    
+    <item>
+      <title>Initialization From Try Else</title>
+      <link>/learnings/02_initialization-from-try-else/</link>
+      <pubDate>Tue, 27 Feb 2018 13:39:24 +0530</pubDate>
+      
+      <guid>/learnings/02_initialization-from-try-else/</guid>
+      <description>Wanted to initialize the logger val variable from either the try block or the else block.
+The context is this:
+actor MyActor let logtype: String new create() =&amp;gt; try // somepotentially unsafe operation here like File creation/opening logtype = &amp;quot;file&amp;quot; else logtype = &amp;quot;stdout&amp;quot; end // use logtype somehow here  Problem is, this does not compile. The compiler says something along the lines of :
+field left undefined in constructor .</description>
+    </item>
+    
+    <item>
+      <title>Function From Actor Constructor</title>
+      <link>/learnings/03_function-from-actor-constructor/</link>
+      <pubDate>Tue, 27 Feb 2018 13:38:53 +0530</pubDate>
+      
+      <guid>/learnings/03_function-from-actor-constructor/</guid>
+      <description>I want to separate some portion of the constructor into another function(meaning method) for an actor.
+Example:
+actor MyActor new create() =&amp;gt; &amp;lt;lot of lines of code here&amp;gt;  to
+actor MyActor fun createHelper() =&amp;gt; &amp;lt;some lines of code here&amp;gt; new create() =&amp;gt; &amp;lt;some lines of code here&amp;gt; createHelper()  What the compiler will tell you is:
+Error: example.pony:41:19: receiver type is not a subtype of target type createHelper(env) ^ Info: example.</description>
+    </item>
+    
+    <item>
+      <title>Synchronous call on actor</title>
+      <link>/learnings/04_fetch-sync-from-actor/</link>
+      <pubDate>Tue, 27 Feb 2018 13:38:53 +0530</pubDate>
+      
+      <guid>/learnings/04_fetch-sync-from-actor/</guid>
+      <description>I want to call a method on an actor. Meaning, I want to sycnhronously obtain a values from an actor.
+You cannot really call actor methods from outside, actor variables are all tag.
+You use promises.
+actor MyActor val number: U64 be getNumber(p: Promise[U64]) =&amp;gt; p(number)  // assuming actor variable a let p = Promise[U64] a.getNumber(p) p.next[None]({(n: U64) =&amp;gt; /* do something with n */})  </description>
+    </item>
+    
+  </channel>
+</rss>

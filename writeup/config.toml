@@ -1,0 +1,6 @@
+baseURL = "/"
+relativeURLs = true
+languageCode = "en-us"
+title = "hippocampus"
+
+theme = "hugo-theme-learn"
